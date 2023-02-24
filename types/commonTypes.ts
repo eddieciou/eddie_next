@@ -1,6 +1,6 @@
 export type TUser = {
   user: string;
-  result: string;
+  result: number;
   message: string;
   expires: string;
   userid: string;

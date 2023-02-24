@@ -28,6 +28,8 @@ export const authOptions: NextAuthOptions = {
 
         if (res.ok && user.result === 1) {
           return user;
+        } else if (user.result === 0) {
+          throw new Error(user.message);
         } else return null;
       }
     })

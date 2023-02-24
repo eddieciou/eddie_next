@@ -1,6 +1,7 @@
 'use client';
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface IProps {
   searchParams?: { [key: string]: string | string[] | undefined };
@@ -11,12 +12,22 @@ const LoginPage = ({ searchParams }: IProps) => {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
+  const router = useRouter();
+
   const onSubmit = async () => {
-    const result = await signIn('credentials', {
+    signIn('credentials', {
       username: email,
       password,
-      redirect: true,
-      callbackUrl: (searchParams?.callbackUrl as string) || '/'
+      redirect: false
+      // callbackUrl: (searchParams?.callbackUrl as string) || '/'
+    }).then((response) => {
+      if (response?.ok) {
+        router.push((searchParams?.callbackUrl as string) || '/');
+      } else {
+        console.log('RRRR');
+        console.log(response);
+        setErrorMessage(response?.error as string);
+      }
     });
   };
   return (
@@ -25,8 +36,8 @@ const LoginPage = ({ searchParams }: IProps) => {
         'flex h-screen flex-col items-center  justify-center gap-1 bg-gradient-to-br from-cyan-300 to-sky-600'
       }
     >
-      {searchParams?.message && (
-        <p className='rounded-md bg-red-100 py-2 px-5 text-red-700'>{searchParams?.message}</p>
+      {errorMessage && (
+        <p className='rounded-md bg-red-100 py-2 px-5 text-red-700'>{errorMessage}</p>
       )}
       <div className='flex flex-col gap-5 rounded-md bg-white px-7 py-8 shadow'>
         <input
