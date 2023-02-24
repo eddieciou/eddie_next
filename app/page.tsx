@@ -9,7 +9,9 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/public/favicon.ico' />
       </Head>
-      <div>測試一</div>
+      <h1 className='flex justify-center items-center p-5 text-green-500 text-lg font-bold'>
+        This Is The Home Page! Everyone can see it.
+      </h1>
     </>
   );
 }
