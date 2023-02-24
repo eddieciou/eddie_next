@@ -2,17 +2,20 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import React from 'react';
 
-const AppBar = () => {
+const Header = () => {
   const { data: session } = useSession();
 
   return (
-    <div className='flex gap-5 bg-gradient-to-b from-cyan-50 to-cyan-200 p-2 '>
+    <header className='fixed top-0 flex h-32 w-full gap-5 bg-gradient-to-b from-cyan-50 to-cyan-200 p-2'>
       <Link className='text-sky-600 hover:text-sky-700' href={'/'}>
         Home
       </Link>
 
       <Link className='text-sky-600 hover:text-sky-700' href={'/admin/panel'}>
         Admin Panel
+      </Link>
+      <Link className='text-sky-600 hover:text-sky-700' href={'/common'}>
+        Common Page
       </Link>
       <div className='ml-auto flex gap-2'>
         {session?.user ? (
@@ -28,8 +31,8 @@ const AppBar = () => {
           </button>
         )}
       </div>
-    </div>
+    </header>
   );
 };
 
-export default AppBar;
+export default Header;

@@ -1,9 +1,10 @@
 'use client';
 import 'styles/globals.css';
 import { ReactNode } from 'react';
-import AppBar from '@/app/AppBar';
 import { SessionProvider } from 'next-auth/react';
 import { Session } from 'next-auth';
+import Footer from '@/app/Footer';
+import Header from '@/app/Header';
 
 interface IRootLayoutProps {
   children: ReactNode;
@@ -16,8 +17,9 @@ export default function RootLayout({ children }: IRootLayoutProps) {
       <head />
       <body>
         <SessionProvider>
-          <AppBar />
-          <div>{children}</div>
+          <Header />
+          <main className='my-32 overflow-hidden overscroll-none'>{children}</main>
+          <Footer />
         </SessionProvider>
       </body>
     </html>
